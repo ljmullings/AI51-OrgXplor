@@ -56,16 +56,6 @@ Campus Connect employs a hybrid recommendation system:
     - Design Phase: 1 Sprint (Sprint 2)
     - Development & Testing: 9 Sprints (Sprint 3-11)
     - Deployment: 3 Sprints (Sprint 12-14)
-  
-## Timeline
-The development of the app will be broken down into multiple sprints:
-
-- **Sprint 1-2:** Project Kickoff and Planning
-- **Sprint 3-5:** Requirements Gathering and Analysis, Environment Setup
-- **Sprint 6-9:** Backend and Frontend Development
-- **Sprint 10-12:** Machine Learning Algorithm Development
-- **Sprint 13:** Testing Phase
-- **Sprint 14:** Beta Release
 
 ## Future Features
 - **Explainable AI:** Explain the reasoning behind recommendations for user trust.
