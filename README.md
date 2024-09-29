@@ -81,4 +81,4 @@ The development of the app will be broken down into multiple sprints:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/campus-connect.git
+   git clone 
