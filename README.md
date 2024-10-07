@@ -71,4 +71,8 @@ Campus Connect employs a hybrid recommendation system:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone 
+   git clone
+
+### Special Thanks
+
+Thank you to AIS@UTD and to my awesome developers for all of their hard work!
