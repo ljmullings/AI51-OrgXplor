@@ -1,9 +1,12 @@
-import { Text, View } from "react-native";
+import { View, Text } from "react-native";
+import React from "react";
 
-export default function Index() {
+const App = () => {
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+    <View className="flex-1">
+      <Text>App</Text>
     </View>
   );
-}
+};
+
+export default App;
