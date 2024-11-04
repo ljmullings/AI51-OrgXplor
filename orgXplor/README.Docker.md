@@ -1,22 +1,11 @@
-### Building and running your application
+# How to run the backend on your machine!
 
-When you're ready, start your application by running:
-`docker compose up --build`.
+Clone this repo
+Open up your terminal and cd into this project folder
 
-Your application will be available at http://localhost:8080.
+Install docker: https://docs.docker.com/engine/install/
+You might also need : https://www.postgresql.org/download/
 
-### Deploying your application to the cloud
-
-First, build your image, e.g.: `docker build -t myapp .`.
-If your cloud uses a different CPU architecture than your development
-machine (e.g., you are on a Mac M1 and your cloud provider is amd64),
-you'll want to build the image for that platform, e.g.:
-`docker build --platform=linux/amd64 -t myapp .`.
-
-Then, push it to your registry, e.g. `docker push myregistry.com/myapp`.
-
-Consult Docker's [getting started](https://docs.docker.com/go/get-started-sharing/)
-docs for more detail on building and pushing.
-
-### References
-* [Docker's Node.js guide](https://docs.docker.com/language/nodejs/)
+Once done, you can simply run 
+    docker compose up --build
+and all the installations along with setting up the db will be done through docker, no need to run anything else!   
