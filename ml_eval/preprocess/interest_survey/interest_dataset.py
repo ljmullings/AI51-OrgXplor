@@ -1,9 +1,23 @@
+from __future__ import annotations
 # Data processing
 import pandas as pd
 import numpy as np
 
 # Utility
 from typing import List
+
+class InterestSurveyDatasetIterator:
+    def __init__(self, dataset: InterestSurveyDataset):
+        self.cur = 0
+        self.dataset = dataset
+
+    def __next__(self) -> np.ndarray:
+        if self.cur >= len(self.dataset):
+            raise StopIteration
+        
+        self.cur += 1
+        return self.dataset[self.cur - 1]
+
 
 class InterestSurveyDataset:
     def __init__(self, file: str):
@@ -49,7 +63,7 @@ class InterestSurveyDataset:
     def __len__(self) -> int:
         return len(self._df)
     
-    def __getitem__(self, idx: int) -> np.array:
+    def __getitem__(self, idx: int) -> np.ndarray:
         row: pd.Series = self._df.iloc[idx]
         return np.array(
             [row[key] for key in self._feature_keys]
@@ -64,3 +78,14 @@ if __name__=="__main__":
 
     print(f"dataset[0]: {dataset[0]}")
     print(f"len(dataset): {len(dataset)}")
+    
+    print("Iteration Tests:")
+    for idx,item in enumerate(dataset):
+        if idx >= 5: break
+        print(f"{idx}: {item}")
+    
+    print("Full Iteration: ", end="")
+    for idx,item in enumerate(dataset):
+        pass
+
+    print("Success")
