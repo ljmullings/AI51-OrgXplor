@@ -6,19 +6,6 @@ import numpy as np
 # Utility
 from typing import List
 
-class InterestSurveyDatasetIterator:
-    def __init__(self, dataset: InterestSurveyDataset):
-        self.cur = 0
-        self.dataset = dataset
-
-    def __next__(self) -> np.ndarray:
-        if self.cur >= len(self.dataset):
-            raise StopIteration
-        
-        self.cur += 1
-        return self.dataset[self.cur - 1]
-
-
 class InterestSurveyDataset:
     def __init__(self, file: str):
         self._df: pd.DataFrame = pd.read_csv(file)
