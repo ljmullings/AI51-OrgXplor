@@ -4,10 +4,24 @@ import pandas as pd
 import numpy as np
 
 # Utility
-from typing import List
+from typing import List,Tuple
 
 class InterestSurveyDataset:
-    def __init__(self, file: str):
+    def __init__(self, file: str,
+                 include_extracurricular: bool=True,
+                 include_ethnic_id: bool=True,
+                 include_faith_id: bool=True,
+                 include_preferred_activity: bool=True,
+                 include_availability: bool=True,
+                 include_achieve: bool=True,
+                 include_remind_pref: bool=True,
+                 include_major: bool=True,
+                 include_join_ethnic: bool=True,
+                 include_join_faith: bool=True,
+                 include_attend_freq: bool=True,
+                 include_academic: bool=True,
+                 include_diversity: bool=True,
+                 ):
         self._df: pd.DataFrame = pd.read_csv(file)
 
         extracurricular_keys: List[str] = self._get_df_keys_prefixed("Extracurricular: ")
@@ -26,20 +40,25 @@ class InterestSurveyDataset:
         diversity_keys: List[str] = self._get_df_keys_prefixed("Events for Diversity and Inclusion: ")
         
         # Feature keys in order
-        self._feature_keys: List[str] = \
-            extracurricular_keys + \
-            ethnic_id_keys + \
-            faith_keys + \
-            activity_keys + \
-            availability_keys + \
-            achieve_keys + \
-            remind_keys + \
-            major_keys + \
-            join_ethnic_keys + \
-            join_faith_keys + \
-            attend_freq_keys + \
-            academic_keys + \
-            diversity_keys
+        feature_keys_include: List[Tuple[str,str]] = [\
+            (extracurricular_keys, include_extracurricular), \
+            (ethnic_id_keys, include_ethnic_id), \
+            (faith_keys, include_faith_id), \
+            (activity_keys, include_preferred_activity), \
+            (availability_keys, include_availability), \
+            (achieve_keys, include_achieve), \
+            (remind_keys, include_remind_pref), \
+            (major_keys, include_major), \
+            (join_ethnic_keys, include_join_ethnic), \
+            (join_faith_keys, include_join_faith), \
+            (attend_freq_keys, include_attend_freq), \
+            (academic_keys, include_academic), \
+            (diversity_keys, include_diversity) \
+        ]
+        self._feature_keys: List[str] = []
+        for keys,include in feature_keys_include:
+            if include:
+                self._feature_keys += keys
         
     def _get_df_keys_prefixed(self, item: str) -> List[str]:
         return [
@@ -76,3 +95,10 @@ if __name__=="__main__":
         pass
 
     print("Success")
+
+    dataset = InterestSurveyDataset("../../datasets/orgxplor_interest_responses_processed.csv",
+                                    include_availability=False,
+                                    include_ethnic_id=False,
+                                    include_faith_id=False)
+    print(f"dataset[1]: {dataset[1]}")
+    print("Feature Names:\n\t" + "\n\t".join(dataset.get_feature_names()))
