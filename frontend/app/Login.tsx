@@ -1,4 +1,10 @@
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from 'firebase/auth';
 import React, { useState } from 'react';
 import {
   View,
@@ -44,6 +50,28 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  const signInWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      const idToken = (userInfo as { idToken: string }).idToken;
+      const credential = GoogleAuthProvider.credential(idToken);
+      await signInWithCredential(auth, credential);
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g., sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        console.log(error);
+        alert('Google sign in failed: ' + error.message);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
@@ -68,6 +96,7 @@ const Login = () => {
           <>
             <Button title="Login" onPress={signIn} />
             <Button title="Sign Up" onPress={signUp} />
+            <Button title="Sign In with Google" onPress={signInWithGoogle} />
           </>
         )}
       </KeyboardAvoidingView>
