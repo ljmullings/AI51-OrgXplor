@@ -6,7 +6,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies
-RUN
+RUN ["npm", "install", "express"]
+RUN ["npm", "install", "pg"]
 
 # Copy the rest of the application code
 COPY . .
